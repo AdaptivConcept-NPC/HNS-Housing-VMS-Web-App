@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visitation Register | HNS Housing Visitor Management System (HNS VMS)</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="../styles/style.css" />
+
+    <!--fontawesome-->
+    <script src="https://kit.fontawesome.com/a2763a58b1.js"></script>
+  </head>
+  <body>
+    <!-- Edit Record Modal Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Edit-Record-Modal" id="toggle-edit-record-modal" hidden></button>
+
+    <!-- Edit Record Modal -->
+    <div class="modal fade" id="Edit-Record-Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-record-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollablez modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="edit-record-modal-label">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="loadVisits()"></button>
+          </div>
+          <div class="modal-body">
+            <iframe src="" id="edit-form-viewer" frameborder="0" class="w-100" style="min-height: 60vh; border-radius: 25pxca"></iframe>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger rounded-pill" data-bs-dismiss="modal" onclick="loadVisits()">Close <i class="fas fa-ban"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ./ Edit Record Modal -->
+
+    <!-- New Visit Record Modal Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#New-Visit-Record-Modal" id="" hidden></button>
+
+    <!-- New Visit Record Modal -->
+    <div class="modal fade" id="New-Visit-Record-Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="new-visit-record-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="new-visit-record-modal-label"><strong>Capture a New Visitation</strong></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-white">
+            <form action="new-visit.php" method="post" id="new-visit-form" class="basic-form-style p-4 shadow fs-3 bg-info">
+              <div class="mb-3" hidden>
+                <label for="visit-id" class="form-label">visit ID</label>
+                <input type="number" class="form-control rounded-pill" id="visit-id" name="visit-id" />
+              </div>
+              <div class="mb-3">
+                <label for="new-visitor-name-input" class="form-label">Visitors Name</label>
+                <input type="text" class="form-control rounded-pill" id="new-visitor-name-input" name="new-visitor-name-input" required />
+              </div>
+              <div class="mb-3">
+                <label for="new-visitor-surname-input" class="form-label">Visitors Surname</label>
+                <input type="text" class="form-control rounded-pill" id="new-visitor-surname-input" name="new-visitor-surname-input" required />
+              </div>
+              <div class="mb-3">
+                <label for="new-visitor-idnum-input" class="form-label">Visitors ID Number</label>
+                <input type="number" class="form-control rounded-pill" id="new-visitor-idnum-input" name="new-visitor-idnum-input" required />
+              </div>
+              <div class="mb-3">
+                <label for="new-visitor-phone-input" class="form-label">Visitors Phone Number</label>
+                <input type="number" class="form-control rounded-pill" id="new-visitor-phone-input" name="new-visitor-phone-input" required />
+              </div>
+              <div class="mb-3">
+                <label for="new-visitor-gender-input" class="form-label">Visitors Gender</label>
+                <select class="form-select form-select-lg mb-3" id="new-visitor-gender-input" name="new-visitor-gender-input" aria-label=".form-select-lg example" required>
+                  <option selected>-- Select --</option>
+                  <option value="Male">Male</option>
+                  <option value="Male">Female</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="new-visitor-nationality-input" class="form-label">Visitors Nationality</label>
+                <select class="form-select form-select-lg mb-3" id="new-visitor-nationality-input" name="new-visitor-nationality-input" required>
+                  <option selected>-- Select --</option>
+                  <option value="Afghanistan">Afghanistan</option>
+                  <option value="Albania">Albania</option>
+                  <option value="Algeria">Algeria</option>
+                  <option value="Andorra">Andorra</option>
+                  <option value="Angola">Angola</option>
+                  <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Armenia">Armenia</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Austria">Austria</option>
+                  <option value="Azerbaijan">Azerbaijan</option>
+                  <option value="Bahamas">Bahamas</option>
+                  <option value="Bahrain">Bahrain</option>
+                  <option value="Bangladesh">Bangladesh</option>
+                  <option value="Barbados">Barbados</option>
+                  <option value="Belarus">Belarus</option>
+                  <option value="Belgium">Belgium</option>
+                  <option value="Belize">Belize</option>
+                  <option value="Benin">Benin</option>
+                  <option value="Bhutan">Bhutan</option>
+                  <option value="Bolivia">Bolivia</option>
+                  <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                  <option value="Botswana">Botswana</option>
+                  <option value="Brazil">Brazil</option>
+                  <option value="Brunei">Brunei</option>
+                  <option value="Bulgaria">Bulgaria</option>
+                  <option value="Burkina Faso">Burkina Faso</option>
+                  <option value="Burundi">Burundi</option>
+                  <option value="Cabo Verde">Cabo Verde</option>
+                  <option value="Cambodia">Cambodia</option>
+                  <option value="Cameroon">Cameroon</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Central African Republic">Central African Republic</option>
+                  <option value="Chad">Chad</option>
+                  <option value="Chile">Chile</option>
+                  <option value="China">China</option>
+                  <option value="Colombia">Colombia</option>
+                  <option value="Comoros">Comoros</option>
+                  <option value="Congo">Congo</option>
+                  <option value="Costa Rica">Costa Rica</option>
+                  <option value="Côte d'Ivoire">Côte d"Ivoire</option>
+                  <option value="Croatia">Croatia</option>
+                  <option value="Cuba">Cuba</option>
+                  <option value="Cyprus">Cyprus</option>
+                  <option value="Czech Republic (Czechia)">Czech Republic (Czechia)</option>
+                  <option value="Denmark">Denmark</option>
+                  <option value="Djibouti">Djibouti</option>
+                  <option value="Dominica">Dominica</option>
+                  <option value="Dominican Republic">Dominican Republic</option>
+                  <option value="DR Congo">DR Congo</option>
+                  <option value="Ecuador">Ecuador</option>
+                  <option value="Egypt">Egypt</option>
+                  <option value="El Salvador">El Salvador</option>
+                  <option value="Equatorial Guinea">Equatorial Guinea</option>
+                  <option value="Eritrea">Eritrea</option>
+                  <option value="Estonia">Estonia</option>
+                  <option value="Eswatini">Eswatini</option>
+                  <option value="Ethiopia">Ethiopia</option>
+                  <option value="Fiji">Fiji</option>
+                  <option value="Finland">Finland</option>
+                  <option value="France">France</option>
+                  <option value="Gabon">Gabon</option>
+                  <option value="Gambia">Gambia</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Germany">Germany</option>
+                  <option value="Ghana">Ghana</option>
+                  <option value="Greece">Greece</option>
+                  <option value="Grenada">Grenada</option>
+                  <option value="Guatemala">Guatemala</option>
+                  <option value="Guinea">Guinea</option>
+                  <option value="Guinea-Bissau">Guinea-Bissau</option>
+                  <option value="Guyana">Guyana</option>
+                  <option value="Haiti">Haiti</option>
+                  <option value="Holy See">Holy See</option>
+                  <option value="Honduras">Honduras</option>
+                  <option value="Hungary">Hungary</option>
+                  <option value="Iceland">Iceland</option>
+                  <option value="India">India</option>
+                  <option value="Indonesia">Indonesia</option>
+                  <option value="Iran">Iran</option>
+                  <option value="Iraq">Iraq</option>
+                  <option value="Ireland">Ireland</option>
+                  <option value="Israel">Israel</option>
+                  <option value="Italy">Italy</option>
+                  <option value="Jamaica">Jamaica</option>
+                  <option value="Japan">Japan</option>
+                  <option value="Jordan">Jordan</option>
+                  <option value="Kazakhstan">Kazakhstan</option>
+                  <option value="Kenya">Kenya</option>
+                  <option value="Kiribati">Kiribati</option>
+                  <option value="Kuwait">Kuwait</option>
+                  <option value="Kyrgyzstan">Kyrgyzstan</option>
+                  <option value="Laos">Laos</option>
+                  <option value="Latvia">Latvia</option>
+                  <option value="Lebanon">Lebanon</option>
+                  <option value="Lesotho">Lesotho</option>
+                  <option value="Liberia">Liberia</option>
+                  <option value="Libya">Libya</option>
+                  <option value="Liechtenstein">Liechtenstein</option>
+                  <option value="Lithuania">Lithuania</option>
+                  <option value="Luxembourg">Luxembourg</option>
+                  <option value="Madagascar">Madagascar</option>
+                  <option value="Malawi">Malawi</option>
+                  <option value="Malaysia">Malaysia</option>
+                  <option value="Maldives">Maldives</option>
+                  <option value="Mali">Mali</option>
+                  <option value="Malta">Malta</option>
+                  <option value="Marshall Islands">Marshall Islands</option>
+                  <option value="Mauritania">Mauritania</option>
+                  <option value="Mauritius">Mauritius</option>
+                  <option value="Mexico">Mexico</option>
+                  <option value="Micronesia">Micronesia</option>
+                  <option value="Moldova">Moldova</option>
+                  <option value="Monaco">Monaco</option>
+                  <option value="Mongolia">Mongolia</option>
+                  <option value="Montenegro">Montenegro</option>
+                  <option value="Morocco">Morocco</option>
+                  <option value="Mozambique">Mozambique</option>
+                  <option value="Myanmar">Myanmar</option>
+                  <option value="Namibia">Namibia</option>
+                  <option value="Nauru">Nauru</option>
+                  <option value="Nepal">Nepal</option>
+                  <option value="Netherlands">Netherlands</option>
+                  <option value="New Zealand">New Zealand</option>
+                  <option value="Nicaragua">Nicaragua</option>
+                  <option value="Niger">Niger</option>
+                  <option value="Nigeria">Nigeria</option>
+                  <option value="North Korea">North Korea</option>
+                  <option value="North Macedonia">North Macedonia</option>
+                  <option value="Norway">Norway</option>
+                  <option value="Oman">Oman</option>
+                  <option value="Pakistan">Pakistan</option>
+                  <option value="Palau">Palau</option>
+                  <option value="Panama">Panama</option>
+                  <option value="Papua New Guinea">Papua New Guinea</option>
+                  <option value="Paraguay">Paraguay</option>
+                  <option value="Peru">Peru</option>
+                  <option value="Philippines">Philippines</option>
+                  <option value="Poland">Poland</option>
+                  <option value="Portugal">Portugal</option>
+                  <option value="Qatar">Qatar</option>
+                  <option value="Romania">Romania</option>
+                  <option value="Russia">Russia</option>
+                  <option value="Rwanda">Rwanda</option>
+                  <option value="Saint Kitts & Nevis">Saint Kitts & Nevis</option>
+                  <option value="Saint Lucia">Saint Lucia</option>
+                  <option value="Samoa">Samoa</option>
+                  <option value="San Marino">San Marino</option>
+                  <option value="Sao Tome & Principe">Sao Tome & Principe</option>
+                  <option value="Saudi Arabia">Saudi Arabia</option>
+                  <option value="Senegal">Senegal</option>
+                  <option value="Serbia">Serbia</option>
+                  <option value="Seychelles">Seychelles</option>
+                  <option value="Sierra Leone">Sierra Leone</option>
+                  <option value="Singapore">Singapore</option>
+                  <option value="Slovakia">Slovakia</option>
+                  <option value="Slovenia">Slovenia</option>
+                  <option value="Solomon Islands">Solomon Islands</option>
+                  <option value="Somalia">Somalia</option>
+                  <option value="South Africa">South Africa</option>
+                  <option value="South Korea">South Korea</option>
+                  <option value="South Sudan">South Sudan</option>
+                  <option value="Spain">Spain</option>
+                  <option value="Sri Lanka">Sri Lanka</option>
+                  <option value="St. Vincent & Grenadines">St. Vincent & Grenadines</option>
+                  <option value="State of Palestine">State of Palestine</option>
+                  <option value="Sudan">Sudan</option>
+                  <option value="Suriname">Suriname</option>
+                  <option value="Sweden">Sweden</option>
+                  <option value="Switzerland">Switzerland</option>
+                  <option value="Syria">Syria</option>
+                  <option value="Tajikistan">Tajikistan</option>
+                  <option value="Tanzania">Tanzania</option>
+                  <option value="Thailand">Thailand</option>
+                  <option value="Timor-Leste">Timor-Leste</option>
+                  <option value="Togo">Togo</option>
+                  <option value="Tonga">Tonga</option>
+                  <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                  <option value="Tunisia">Tunisia</option>
+                  <option value="Turkey">Turkey</option>
+                  <option value="Turkmenistan">Turkmenistan</option>
+                  <option value="Tuvalu">Tuvalu</option>
+                  <option value="Uganda">Uganda</option>
+                  <option value="Ukraine">Ukraine</option>
+                  <option value="United Arab Emirates">United Arab Emirates</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="United States">United States</option>
+                  <option value="Uruguay">Uruguay</option>
+                  <option value="Uzbekistan">Uzbekistan</option>
+                  <option value="Vanuatu">Vanuatu</option>
+                  <option value="Venezuela">Venezuela</option>
+                  <option value="Vietnam">Vietnam</option>
+                  <option value="Yemen">Yemen</option>
+                  <option value="Zambia">Zambia</option>
+                  <option value="Zimbabwe">Zimbabwe</option>
+                </select>
+              </div>
+              <div class="mb-3" hidden>
+                <label for="new-visitor-sib-input" class="form-label">Visitor Signed-In By</label>
+                <input type="number" class="form-control rounded-pill" id="new-visitor-sib-input" name="new-visitor-sib-input" required value="1" />
+              </div>
+              <div class="mb-3">
+                <label for="new-visitor-startdate-input" class="form-label">Visit Start Date</label>
+                <input type="date" class="form-control rounded-pill" id="new-visitor-startdate-input" name="new-visitor-startdate-input" required />
+              </div>
+              <div class="mb-3">
+                <label for="new-visitor-enddate-input" class="form-label">Visit End Date</label>
+                <input type="date" class="form-control rounded-pill" id="new-visitor-enddate-input" name="new-visitor-enddate-input" required />
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-info btn-block rounded-0 fw-bold shadow border border-light border-5">
+                  <span class="fs-1 m-4">Save Visitors Info <i class="fas fa-save"></i></span>
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger rounded-pill" data-bs-dismiss="modal">Close <i class="fas fa-ban"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ./ New Visit Record Modal -->
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light my-nav shadow">
+      <div class="container-fluid">
+        <a class="navbar-brand text-white fs-1 gugi-font" href="#"><i class="fas fa-igloo p-4 border border-light border-3 text-secondary"></i> HNS Housing<span style="color: rgb(108, 117, 125)"> | VMS</span></a>
+        <div class="d-grid gap-2 w-100">
+          <button class="navbar-toggler bg-white rounded-0 shadow" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end fw-bold" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home_(Visit_Register)</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About_Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Get_in_touch</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-danger border-danger" href="../index.html">Sign_Out_(Home)</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- ./ Navbar -->
+
+    <!-- Footer -->
+    <div class="fixed-bottom my-nav p-4 shadow">
+      <p class="text-center m-0 fw-bold">Copyright &copy; 2021 | Developed by Mr. Thabang Mposula (8008999) Boston City Centre</p>
+    </div>
+
+    <!-- ./Footer -->
+
+    <div class="container py-4" style="margin-bottom: 100px">
+      <div class="trans-container p-4 shadow">
+        <h1 class="text-center"><i class="fas fa-book-open"></i> Visitation Register</h1>
+        <p class="text-secondary text-center">Visitor Management System</p>
+        <div class="text-end sticky-top">
+          <button class="btn btn-info btn-lg p-4 rounded-0 fw-bold text-white" id="toggle-new-visit-record-modal" type="button" data-bs-toggle="modal" data-bs-target="#New-Visit-Record-Modal">+ New Visitor</button>
+        </div>
+
+        <div class="table-responsive border-successz">
+          <table class="table table-hover table-bordered table-light text-success mb-4z sniglet-font shadow" id="visit-log-table-table-container">
+            <thead class="table-info">
+              <tr>
+                <th colspan="2" scope="col" class="bg-info text-center text-white"><i class="fas fa-ellipsis-h"></i></th>
+                <th scope="col">Visitor ID</th>
+                <th scope="col">Visitor Name</th>
+                <th scope="col">Visitor Surname</th>
+                <th scope="col">Visitor ID Number</th>
+                <th scope="col">Visitor Phone Number</th>
+                <th scope="col">Visitor Gender</th>
+                <th scope="col">Visitor Nationality</th>
+                <th scope="col">Signed In By</th>
+                <th scope="col">Visit Start Date</th>
+                <th scope="col">Visit Start Date</th>
+              </tr>
+            </thead>
+            <tbody id="visit-log-table-body" class="text-dark">
+              <tr>
+                <td colspan="17"><h1 class="fw-bold text-center my-4">No visitations to display.</h1></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      //if the return param is set, open the Capture new Visitor Modal
+      function findGetParameter(parameterName) {
+        var result = null,
+          tmp = [];
+        var items = location.search.substr(1).split("&");
+        for (var index = 0; index < items.length; index++) {
+          tmp = items[index].split("=");
+          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        }
+        return result;
+      }
+      //get the 'index' query parameter
+      //alert(findGetParameter("return"));
+      var returnStr = findGetParameter("return");
+
+      //******* Load Visit Log
+      //We want to load the Visit Log Table Body Content.
+      function loadVisits() {
+        //Initialize Variables
+        var logTableBody = document.getElementById("visit-log-table-body");
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+          logTableBody.innerHTML = this.responseText;
+        };
+        xhttp.open("GET", "compile-visit-log.php?entry=pageinit", true);
+        xhttp.send();
+      }
+
+      //******* Launch the Record Update Modal
+      //We want to Launch the Record Update Modal when the edit buttons are clicked from Visitation Log
+      function showModal(recordid) {
+        //initialize variable
+        var modalToggleBtn = document.getElementById("toggle-edit-record-modal");
+        var modalIFrameViewer = document.getElementById("edit-form-viewer");
+        var editRecordModalLbl = document.getElementById("edit-record-modal-label");
+
+        //open the edit record modal and pass the url for edit-product.php?id=val in the #edit-form-viewer iframe
+        modalToggleBtn.click();
+        editRecordModalLbl.innerHTML = "<strong>Edit Visitation Record</strong> (Visit id: " + recordid + ")";
+        modalIFrameViewer.src = "edit-visit.php?id=" + recordid;
+      }
+
+      //******* Delete Record from Visitation List
+      //We want to remove the record of the id from the database and UI table
+      function executeDelete(recordid) {
+        //Initialize Variables
+        var returned;
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+          returned = this.responseText;
+
+          if (returned == "success") {
+            alert("Notice!\n\n\nThe selected record has been Deleted Successfully.");
+            loadVisits();
+          } else if (returned.startsWith("An Error has Occured")) {
+            alert(returned);
+          } else {
+            alert("Other Return: " + returned);
+          }
+        };
+        xhttp.open("GET", "delete-record.php?id=" + recordid, true);
+        xhttp.send();
+      }
+
+      function deleteVisitRecord(recordid) {
+        let bool;
+        if (confirm("Are you sure about deleting this record? \n\nPlease click Cancel if this was an error.") == true) {
+          bool = true;
+        } else {
+          bool = false;
+        }
+
+        if (bool) {
+          executeDelete(recordid);
+        }
+      }
+
+      //On load: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      document.addEventListener("load", loadVisits());
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
+</html>
